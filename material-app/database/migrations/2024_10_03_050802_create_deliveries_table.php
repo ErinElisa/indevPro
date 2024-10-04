@@ -14,8 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('deliveries', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->date('delivery_date');
+            $table->string('sender');
+            $table->string('destination');
+            $table->integer('qty')->default(1);
+            $table->text('note')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

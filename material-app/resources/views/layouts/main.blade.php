@@ -9,9 +9,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Able Pro is trending dashboard template made using Bootstrap 5 design framework. Able Pro is available in Bootstrap, React, CodeIgniter, Angular,  and .net Technologies.">
-    <meta name="keywords" content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard">
-    <meta name="author" content="Phoenixcoded">
 
     <!-- [Favicon] icon -->
     <link rel="icon" href="https://ableproadmin.com/assets/images/favicon.svg" type="image/x-icon">
@@ -39,20 +36,18 @@
 
 <body>
     <!-- [ Pre-loader ] start -->
-<div class="loader-bg">
-  <div class="loader-track">
-    <div class="loader-fill"></div>
-  </div>
-</div>
-<!-- [ Pre-loader ] End -->
+    <div class="loader-bg">
+    <div class="loader-track">
+        <div class="loader-fill"></div>
+    </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
 
-@include('layouts.sidebar')
+    @include('layouts.sidebar')
 
-@include('layouts.header')
+    @include('layouts.header')
 
-<!-- [ Header ] end -->
-
-
+    <!-- [ Header ] end -->
 
     @yield('main-content')
 
@@ -71,7 +66,8 @@
     <script src="{{ asset('assets') }}/js/plugins/feather.min.js"></script>
     <script src="{{ asset('assets') }}/js/axios.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/sweetalert2.all.min.js"></script>
-    @yield('custom-js')
+
+    @stack('custom-js')
   </body>
   <!-- [Body] end -->
 </html>

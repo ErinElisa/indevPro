@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->date('payment_date');
+            $table->string('payer');
+            $table->float('amount', 20, 0)->default(0);
+            $table->text('nota');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
