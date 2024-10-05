@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseFormatter;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;

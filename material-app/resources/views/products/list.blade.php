@@ -57,7 +57,7 @@
                                             </ul>
                                             <hr>
                                             <div class="position-absolute end-0">
-                                                <a href="{{ route('product.edit', ['eid'=>$p->id]) }} "  class="btn btn-sm btn-outline-primary mb-2">Update</a>
+                                                <a href="{{ route('product.edit', ['pid'=>$p->id]) }} "  class="btn btn-sm btn-outline-primary mb-2">Update</a>
                                                 <a href="javascript:void(0) "  class="btn btn-sm btn-outline-danger mb-2" data-id="{{ $p->id }}" onclick="remove(this)">Hapus</a>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
               if (result.isConfirmed) {
                 axios.delete(`{{ route('product.delete') }}`, {
                   params : {
-                    'eid' : e.getAttribute("data-id"),
+                    'pid' : e.getAttribute("data-id"),
                   }
                 }).then((response)=>{
                   swalWithBootstrapButtons.fire('Deleted!', 'Data berhasil dihapus.', 'success').then(()=>{

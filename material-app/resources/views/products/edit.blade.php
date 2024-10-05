@@ -128,7 +128,7 @@
               buttonsStyling: false
             });
             swalWithBootstrapButtons.fire('Sukses!', 'Data berhasil disimpan.', 'success').then(()=>{
-                window.location.reload();
+                  window.location.href = `{{ route('product.list') }}`
             });
           },
           error: function(xhr, status, error) {

@@ -29,7 +29,8 @@
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('assets') }}/css/style-preset.css" />
-    @yield('custom-css')
+
+    @stack('custom-css')
   </head>
   <!-- [Head] end -->
   <!-- [Body] Start -->

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('deliveries', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->date('delivery_date');
+            $table->string('product');
             $table->string('sender');
             $table->string('destination');
             $table->integer('qty')->default(1);

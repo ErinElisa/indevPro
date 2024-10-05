@@ -89,8 +89,8 @@
               <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
             </a>
             <ul class="pc-submenu">
-              <li class="pc-item"><a class="pc-link" href="#">List Pengiriman</a></li>
-              <li class="pc-item"><a class="pc-link" href="#">Tambah Data</a></li>
+              <li class="pc-item"><a class="pc-link" href="{{ route('delivery.list')}}">List Pengiriman</a></li>
+              <li class="pc-item"><a class="pc-link" href="{{ route('delivery.new')}}">Tambah Data</a></li>
             </ul>
           </li>
 
