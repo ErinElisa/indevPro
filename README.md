@@ -6,7 +6,7 @@ complete task for assessment 1 are writing-comment, code-style, and writing-test
 
 assessment 2 are in material-app\
 material-app using laravel 9 and php 8\
-Install composer, npm, storage after clone in material-app\
+Install composer, npm, and storage after clone in material-app\
 -composer install\
 -npm install\
 -php artisan storage:link
