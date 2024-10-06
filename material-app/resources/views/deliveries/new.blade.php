@@ -123,18 +123,12 @@
 </section>
 @endsection
 
-
-@section('js-plugin')
-
+@push('custom-js')
 <script src="{{ asset('assets') }}/js/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{ asset('assets') }}/js/plugins/sweetalert2.all.min.js"></script>
 <script src="{{ asset('assets') }}/js/plugins/datepicker-full.min.js"></script>
 <script src="{{ asset('assets') }}/js/plugins/choices.min.js"></script>
-@endsection
-
-
-@section('custom-js')
 <script>
     (function () {
         const d_week = new Datepicker(document.querySelector('#datepicker'), {
@@ -180,4 +174,4 @@
         });
     })
   </script>
-@endsection
+@endpush

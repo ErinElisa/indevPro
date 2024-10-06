@@ -36,7 +36,7 @@ Route::prefix('/products')->group(function(){
     Route::delete('/delete', [ProductsController::class, 'destroy'])->name('product.delete');
 });
 
-// URL untuk halaman produk
+// URL untuk halaman pengiriman
 Route::prefix('/delivery')->group(function(){
     Route::get('/', [DeliveryController::class, 'list'])->name('delivery.list');
     Route::get('/add', [DeliveryController::class, 'new'])->name('delivery.new');
@@ -48,14 +48,14 @@ Route::prefix('/delivery')->group(function(){
     Route::get('/data-json', [DeliveryDataController::class, 'dt'])->name('delivery.data_json');
 });
 
-// URL untuk halaman Pembayaran
-Route::prefix('/Payment')->group(function(){
+// URL untuk halaman pembayaran
+Route::prefix('/payment')->group(function() {
     Route::get('/', [PaymentController::class, 'list'])->name('payment.list');
     Route::get('/add', [PaymentController::class, 'new'])->name('payment.new');
-    Route::post('/add', [PaymentController::class, 'store'])->name('payment.new');
-    Route::get('/edit/{did}', [PaymentController::class, 'edit'])->name('payment.edit');
-    Route::post('/edit/{did}', [PaymentController::class, 'update'])->name('payment.edit');
+    Route::post('/add', [PaymentController::class, 'store'])->name('payment.store');
+    Route::get('/edit/{bid}', [PaymentController::class, 'edit'])->name('payment.edit');
+    Route::post('/edit/{bid}', [PaymentController::class, 'update'])->name('payment.update');
     Route::delete('/delete', [PaymentController::class, 'destroy'])->name('payment.delete');
-    // Data JSON Deliveries
-    Route::get('/data-json', [PaymentDataController::class, 'dt'])->name('payment.data_json');
+    Route::get('/data-json', [PaymentDataController::class, 'dt'])->name('payment.data_json'); // Correct
 });
+

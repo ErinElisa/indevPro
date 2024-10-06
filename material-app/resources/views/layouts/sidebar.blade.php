@@ -105,8 +105,8 @@
               <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
             </a>
             <ul class="pc-submenu">
-              <li class="pc-item"><a class="pc-link" href="#">List Pembayaran</a></li>
-              <li class="pc-item"><a class="pc-link" href="#">New Data</a></li>
+              <li class="pc-item"><a class="pc-link" href="{{ route('payment.list')}}">List Pembayaran</a></li>
+              <li class="pc-item"><a class="pc-link" href="{{ route('payment.new')}}">New Data</a></li>
             </ul>
           </li>
         </ul>

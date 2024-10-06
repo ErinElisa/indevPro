@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 
-@section('app-title', 'Edit Pengiriman')
+@section('app-title', 'Edit Pembayaran')
 
 
 @section('css-plugin')
@@ -19,13 +19,13 @@
           <div class="col-md-12">
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item"><a href="{{ route('delivery.list') }}">Pengiriman</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('payment.list') }}">Pembayaran</a></li>
               <li class="breadcrumb-item" aria-current="page">Edit Data</li>
             </ul>
           </div>
           <div class="col-md-12">
             <div class="page-header-title">
-              <h2 class="mb-0">Edit Pengiriman</h2>
+              <h2 class="mb-0">Edit Pembayaran</h2>
             </div>
           </div>
         </div>
@@ -41,30 +41,25 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-header">
-              <h5>Data Pengiriman</h5>
+              <h5>Data Pembayaran</h5>
             </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-12">
-                  <div class="row mb-3">
-                    <label for="nama" class="col-sm-3 col-form-label">Tanggal Pengiriman</label>
+                    <div class="row mb-3">
+                    <label for="nama" class="col-sm-3 col-form-label">Tanggal Pembayaran</label>
                         <div class="col-sm-9">
-                          <input type="date" name="tanggal" id="datepicker" class="form-control" value="{{ $data->delivery_date }}">
+                            <input type="date" name="tanggal" id="datepicker" class="form-control" value="{{ $data->payment_date }}">
                         </div>
-                  </div>
+                    </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12">
                   <div class="row mb-3">
-                    <label for="nama" class="col-sm-3 col-form-label">Produk</label>
+                    <label for="nama" class="col-sm-3 col-form-label">Pembayar</label>
                     <div class="col-sm-9">
-                      <select class="form-control select-product" data-trigger name="product">
-                        <option value="" disabled selected>Pilih Produk</option>
-                        @foreach ($products as $product)
-                        <option value="{{ $product->id }}" {{ $data->product == $product->id ? 'selected' : '' }}>{{ $product->name }}</option>
-                        @endforeach
-                      </select>
+                      <input type="text" name="payer" class="form-control" placeholder="Nama pembayar" value="{{ $data->payer }}">
                     </div>
                   </div>
                 </div>
@@ -72,32 +67,30 @@
               <div class="row">
                 <div class="col-12">
                   <div class="row mb-3">
-                    <label for="nama" class="col-sm-3 col-form-label">Pengirim</label>
+                    <label for="username" class="col-sm-3 col-form-label">Total</label>
                     <div class="col-sm-9">
-                      <input type="text" name="sender" class="form-control" placeholder="Nama pengirim" value="{{ $data->sender}}">
+                      <input type="number" name="amount" class="form-control" placeholder="Total bayar" value="{{ $data->amount }}">
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="row mb-3">
-                    <label for="username" class="col-sm-3 col-form-label">Tujuan</label>
-                    <div class="col-sm-9">
-                      <input type="text" name="destination" class="form-control" placeholder="Nama Tujuan" value="{{ $data->destination}}">
+              <div class="form-group">
+                <label for="" class="col-sm-3 col-form-label">Nota</label>
+                @if( $data->nota )
+                    <div class="my-3 d-flex gap-2">
+                        <div class="img-thumbnail">
+                          <button type="button" class="remove-not" data-id="{{ $data->id }}" onclick="removeFile(this)">&times; Remove</button>
+                          <img src="{{ asset('storage/assets/payment/'.$data->nota) }}" alt="">
+                        </div>
                     </div>
-                  </div>
+                @endif
+                <div id="remove-nota"></div>
+
+                <div class="input-group mb-3">
+                  <input type="file" name="nota" class="form-control" id="nota">
+                  <label class="input-group-text" for="inputGroupFile02">Upload</label>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="row mb-3">
-                    <label for="username" class="col-sm-3 col-form-label">QTY</label>
-                    <div class="col-sm-9">
-                      <input type="text" name="qty" class="form-control" placeholder="Kuantiti" value="{{ $data->qty}}">
-                    </div>
-                  </div>
-                </div>
+                <p class="help-block">*Maksimal ukuran file adalah 2 MB.</p>
               </div>
               <div class="row">
                 <div class="col-12">
@@ -122,7 +115,6 @@
   <!-- [ Main Content ] end -->
 </section>
 @endsection
-
 
 @push('custom-js')
 <script src="{{ asset('assets') }}/js/jquery-3.7.0.min.js"></script>
@@ -156,8 +148,8 @@
       var form = document.querySelector('#input-form');
       var data = new FormData(form);
 
-      var url = `{{ route('delivery.edit', ['did' => 'deliv_id']) }}`;
-      url = url.replace('deliv_id', `{{ $data->id }}`)
+      var url = `{{ route('payment.edit', ['bid' => 'pay_id']) }}`;
+      url = url.replace('pay_id', `{{ $data->id }}`)
       axios.post(url, data)
       .then(function (response) {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -167,7 +159,7 @@
           buttonsStyling: false
         });
         swalWithBootstrapButtons.fire('Sukses!', 'Data berhasil diperbarui.', 'success').then(()=>{
-                  window.location.href = `{{ route('delivery.list') }}`
+                  window.location.href = `{{ route('payment.list') }}`
         });
       })
       .catch(function (error) {
@@ -175,4 +167,20 @@
       });
     })
   </script>
+
+<script>
+    function removeFile(e){
+      console.log(e.dataset.id)
+
+      $(e).parents('.img-thumbnail').remove()
+
+      $('#remove-nota').append(`
+      <input type="hidden" name="remove_nota" value="${e.dataset.id}">
+      `);
+    }
+
+    $('.img-thumbnail img').click(function(){
+      window.open($(this).attr('src'), "_blank")
+    })
+</script>
 @endpush

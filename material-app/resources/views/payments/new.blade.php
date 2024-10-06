@@ -1,11 +1,12 @@
 @extends('layouts.main')
 
 
-@section('app-title', 'Tambah Produk')
+@section('app-title', 'Tambah Pembayaran')
 
 
 @section('css-plugin')
 <link rel="stylesheet" href="{{ asset('assets') }}/css/plugins/dropzone.min.css">
+<link rel="stylesheet" href="{{ asset('assets') }}/css/plugins/datepicker-bs5.min.css">
 @endsection
 
 @section('main-content')
@@ -18,13 +19,13 @@
           <div class="col-md-12">
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item"><a href="{{ route('product.list') }}">Produk</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('payment.list') }}">Pembayaran</a></li>
               <li class="breadcrumb-item" aria-current="page">Tambah Data</li>
             </ul>
           </div>
           <div class="col-md-12">
             <div class="page-header-title">
-              <h2 class="mb-0">Tambah Produk Baru</h2>
+              <h2 class="mb-0">Tambah Pembayaran Baru</h2>
             </div>
           </div>
         </div>
@@ -40,15 +41,25 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-header">
-              <h5>Data Produk</h5>
+              <h5>Data Pambayaran</h5>
             </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-12">
                   <div class="row mb-3">
-                    <label for="nama" class="col-sm-3 col-form-label">Nama</label>
+                    <label for="nama" class="col-sm-3 col-form-label">Tanggal Pembayaran</label>
+                        <div class="col-sm-9">
+                          <input type="date" name="tanggal" id="datepicker" class="form-control" value="{{ date('Y-m-d') }}">
+                        </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="row mb-3">
+                    <label for="nama" class="col-sm-3 col-form-label">Pembayar</label>
                     <div class="col-sm-9">
-                      <input type="text" name="name" class="form-control" placeholder="Nama produk">
+                      <input type="text" name="payer" class="form-control" placeholder="Nama pembayar">
                     </div>
                   </div>
                 </div>
@@ -56,24 +67,34 @@
               <div class="row">
                 <div class="col-12">
                   <div class="row mb-3">
-                    <label for="username" class="col-sm-3 col-form-label">Harga</label>
+                    <label for="username" class="col-sm-3 col-form-label">Total</label>
                     <div class="col-sm-9">
-                      <input type="text" name="price" class="form-control" placeholder="Harga">
+                      <input type="number" name="amount" class="form-control" placeholder="Total bayar">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="form-group">
-                <label for="" class="col-sm-3 col-form-label">Gambar</label>
+                <label for="" class="col-sm-3 col-form-label">Nota</label>
                 <div class="input-group mb-3">
-                  <input type="file" name="image" class="form-control" id="image">
+                  <input type="file" name="nota" class="form-control" id="nota">
                   <label class="input-group-text" for="inputGroupFile02">Upload</label>
                 </div>
                 <p class="help-block">*Maksimal ukuran file adalah 2 MB.</p>
               </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="row mb-3">
+                    <label for="username" class="col-sm-3 col-form-label">Catatan</label>
+                    <div class="col-sm-9">
+                      <textarea type="text" name="note" class="form-control" cols="30" rows="5"> </textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             <div class="card-footer d-flex justify-content-between gap-3">
-              <a href="{{ route('product.list') }}" class="btn btn-outline-secondary">Kembali</a>
+              <a href="{{ route('payment.list') }}" class="btn btn-outline-secondary">Kembali</a>
               <button type="submit" class="btn btn-primary">Simpan Data <i class="ti ti-arrow-narrow-right"></i></button>
             </div>
           </div>
@@ -89,7 +110,20 @@
 @push('custom-js')
 <script src="{{ asset('assets') }}/js/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="{{ asset('assets') }}/js/plugins/dropzone-amd-module.min.js"></script>
+<script src="{{ asset('assets') }}/js/plugins/sweetalert2.all.min.js"></script>
+<script src="{{ asset('assets') }}/js/plugins/datepicker-full.min.js"></script>
+<script src="{{ asset('assets') }}/js/plugins/choices.min.js"></script>
+<script>
+    (function () {
+        const d_week = new Datepicker(document.querySelector('#datepicker'), {
+          buttonClass: 'btn',
+          todayBtn: true,
+          clearBtn: true,
+          format: 'yyyy-mm-dd'
+        });
+    })();
+</script>
+
 <script>
     $('#input-form').submit(function(e){
       $('#input-form').attr('disabled', 'true');
@@ -100,7 +134,7 @@
         }
       });
       $.ajax({
-          url: `{{ route('product.new') }}`, // The URL to which you want to send the AJAX request
+          url: `{{ route('payment.new') }}`, // The URL to which you want to send the AJAX request
           type: 'POST',
           data: new FormData(this),
           contentType: false,
@@ -114,7 +148,7 @@
               buttonsStyling: false
             });
             swalWithBootstrapButtons.fire('Sukses!', 'Data berhasil disimpan.', 'success').then(()=>{
-                  window.location.href = `{{ route('product.list') }}`
+                  window.location.href = `{{ route('payment.list') }}`
             });
           },
           error: function(xhr, status, error) {

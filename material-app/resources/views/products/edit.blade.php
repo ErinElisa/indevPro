@@ -69,14 +69,14 @@
                     <div class="my-3 d-flex gap-2">
                         <div class="img-thumbnail">
                           <button type="button" class="remove-img" data-id="{{ $data->id }}" onclick="removeFile(this)">&times; Remove</button>
-                          <img src="{{ asset('storage/assets/'.$data->image) }}" alt="">
+                          <img src="{{ asset('storage/assets/product/'.$data->image) }}" alt="">
                         </div>
                     </div>
                 @endif
-                <div id="remove-nota"></div>
+                <div id="remove-gambar"></div>
 
                 <div class="input-group mb-3">
-                  <input type="file" name="image" class="form-control" id="image">
+                  <input type="file" name="image" class="form-control" id="image" required>
                   <label class="input-group-text" for="inputGroupFile02">Upload</label>
                 </div>
                 <p class="help-block">*Maksimal ukuran file adalah 2 MB.</p>
@@ -96,14 +96,10 @@
 @endsection
 
 
-@section('js-plugin')
+@push('custom-js')
 <script src="{{ asset('assets') }}/js/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{ asset('assets') }}/js/plugins/dropzone-amd-module.min.js"></script>
-@endsection
-
-
-@section('custom-js')
 <script>
     $('#input-form').submit(function(e){
       $('#input-form').attr('disabled', 'true');
@@ -114,7 +110,7 @@
         }
       });
       $.ajax({
-          url: `{{ route('product.edit', ['eid'=>$data->id]) }}`, // The URL to which you want to send the AJAX request
+          url: `{{ route('product.edit', ['pid'=>$data->id]) }}`, // The URL to which you want to send the AJAX request
           type: 'POST',
           data: new FormData(this),
           contentType: false,
@@ -154,4 +150,4 @@
     window.open($(this).attr('src'), "_blank")
   })
 </script>
-@endsection
+@endpush

@@ -39,7 +39,7 @@
                                     <div class="card border">
                                         <div class="card-body p-2">
                                             <div class="position-relative">
-                                                <img src="{{ asset('storage') }}/assets/{{ $p->image }}" alt="img" class="img-fluid">
+                                                <img src="{{ asset('storage') }}/assets/product/{{ $p->image }}" alt="img" class="img-fluid">
                                             </div>
                                             <ul class="list-group list-group-flush my-2">
                                                 <li class="list-group-item px-0 py-2">

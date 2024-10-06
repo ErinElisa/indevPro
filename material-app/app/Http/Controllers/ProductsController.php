@@ -44,7 +44,7 @@ class ProductsController extends Controller
         // Save Image To Storage
         $images = $request->file('image');
         $filename = $images->hashName();
-        $images->move(storage_path('app/public/assets/'), $filename);
+        $images->move(storage_path('app/public/assets/product'), $filename);
 
         // Save Data To Database
         $product = new Product();
@@ -78,11 +78,17 @@ class ProductsController extends Controller
             'price' => $request->price
         ]);
 
+
+        if( $request->remove_gambar ){
+            $nota = Product::where('id', $request->remove_gambar)->first();
+            Storage::disk('public')->delete('assets/product/'.$nota->image);
+        }
+
         // Update With Image
         if ($request->hasFile('image')) {
                 $images = $request->file('image');
                 $filename = $images->hashName();
-                $images->move(storage_path('app/public/assets'), $filename);
+                $images->move(storage_path('app/public/assets/product'), $filename);
 
                 Product::where('id', $eid)->update([
                     'name' => $request->name,
@@ -107,7 +113,7 @@ class ProductsController extends Controller
         $files = Product::where('id', $request->eid)->get();
         foreach ($files as $file) {
             $nota = Product::where('id', $file->id)->first();
-            Storage::disk('public')->delete('assets/'.$nota->image);
+            Storage::disk('public')->delete('assets/product/'.$nota->image);
             Product::where('image', $nota->image)->delete();
         }
 

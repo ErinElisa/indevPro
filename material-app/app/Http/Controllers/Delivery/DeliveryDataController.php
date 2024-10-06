@@ -16,8 +16,8 @@ class DeliveryDataController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $btn = '<div class="d-flex gap-2 justify-content-end">';
-                    $btn .= '<a href="javascript:void(0)" class="btn-remove btn btn-outline-danger btn-sm rounded-0 px-4" data-id="'.$row->id.'" onclick="remove(this)"><i class="material-icons-two-tone">delete</i> Hapus</a>';
-                    $btn .= '<a href="'.route('delivery.edit', ['did'=>$row->id]).'" class="btn btn-outline-primary btn-sm rounded-0 px-4"><i class="material-icons-two-tone">edit</i> Edit</a>';
+                    $btn .= '<a href="javascript:void(0)" class="btn-remove btn btn-outline-danger btn-sm rounded-0 px-4" data-id="'.$row->id.'" onclick="remove(this)"><i class="material-icons-two-tone text-danger">delete</i> Hapus</a>';
+                    $btn .= '<a href="'.route('delivery.edit', ['did'=>$row->id]).'" class="btn btn-outline-primary btn-sm rounded-0 px-4"><i class="material-icons-two-tone text-primary">edit</i> Edit</a>';
                     $btn .= '</div>';
                     return $btn;
                 })
